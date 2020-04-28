@@ -1,0 +1,7 @@
+<h1>Post List</h1>
+
+<!-- 여기서 post_list는 blog/views.py에 정의된 것을 말함 -->
+<!-- 이 템플릿은 blog/views.py에 render부분에서 활용된다 -->
+{% for post in post_list %}
+<h2>{{ post.title }}</h2>
+{{ post.content }} {% endfor %}
