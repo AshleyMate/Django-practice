@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>post list</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <form action="" method="GET">
+      <!-- input type의 name에 따라 http://127.0.0.1:8000/instagram/?q= 에서 ?뒤에 오는 이름이 정해진다 지금은 q -->
+      <input type="text" name="q" value="{{q}}" />
+      <input type="submit" value="검색" />
+    </form>
+
+    <table class="table table-borderd table-hover">
+      <tbody>
+        <!--여기서 쓰인 post_list는 view.py에 post_list 함수에 render부분에 정의한 post_list를 말하는 것임 -->
+        {% for post in post_list %}
+        <tr>
+          <td>
+            <!-- 만약 if문을 안써주면 photo가 존재하지 않는 글들 때문에 The 'photo' attribute has no file associated with it.라는 오류가
+            발생한다. -->
+            {% if post.photo %}
+            <img src=" {{ post.photo.url }}" style="width: 100px;" /> {% else %}
+            NO photo {%endif%}
+          </td>
+          <td>
+            {{ post.message }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
