@@ -9,6 +9,8 @@ class Post(models.Model):
     message = models.TextField()
     # blank가 True라는 것은 꼭 사진을 안넣어도 된다는 것
     photo = models.ImageField(blank=True, upload_to='instagram/post/%Y/%m/%d')
+    # blank=True로 하면 태그는 필수가 아님
+    tag_set = models.ManyToManyField('Tag', blank=True)
     is_public = models.BooleanField(default=False, verbose_name='공개여부')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -29,3 +31,10 @@ class Comment(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
