@@ -1,6 +1,6 @@
 from django.views.generic import ListView
-from django. http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django. http import HttpResponse, HttpRequest, Http404
+from django.shortcuts import render, get_object_or_404
 from .models import Post
 
 post_list = ListView.as_view(model=Post)
@@ -20,4 +20,16 @@ post_list = ListView.as_view(model=Post)
 
 
 def post_detail(request, pk):
-    pass
+    post = get_object_or_404(Post, pk=pk)
+    # @@@@앞의 pk는 필드를 지정한 것이고 뒤의 pk는 값을 넘긴것 만약에 post_detail(request, ab)였다면 pk=ab가 된다.@@@@
+    # try:
+    #     post = Post.objects.get(pk=pk)
+    # except Post.DoesNotExist:
+    #     raise Http404
+    return render(request, 'instagram/post_detail.html', {
+        'post': post,
+    })
+
+
+def archives_year(request, year):
+    return HttpResponse(f"{year}년 archives")
