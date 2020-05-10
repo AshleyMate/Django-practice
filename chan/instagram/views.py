@@ -3,7 +3,7 @@ from django. http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 
-post_list = ListView.as_view(model=Post)
+post_list = ListView.as_view(model=Post, paginate_by=10)
 # def post_list(request):
 #     # q라는 인자가 있으면 가져오고, 없으면 빈 문자열을 반환해라. 그것을 q에 저장
 #     qs = Post.objects.all()

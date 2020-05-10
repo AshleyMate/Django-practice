@@ -1,3 +1,5 @@
+{% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -22,6 +24,7 @@
         <!--여기서 쓰인 post_list는 view.py에 post_list 함수에 render부분에 정의한 post_list를 말하는 것임 -->
         {% for post in post_list %}
         <tr>
+          <td>{{ post.pk }}</td>
           <td>
             <!-- 만약 if문을 안써주면 photo가 존재하지 않는 글들 때문에 The 'photo' attribute has no file associated with it.라는 오류가
             발생한다. -->
@@ -36,5 +39,7 @@
         {% endfor %}
       </tbody>
     </table>
+    {% if is_paginated %} {% bootstrap_pagination page_obj %} {% endif %}
   </body>
 </html>
+<!-- https://django-bootstrap4.readthedocs.io/en/latest/# 장고 부트스트랩 4 -->
