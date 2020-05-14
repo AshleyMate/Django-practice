@@ -1,13 +1,14 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinLengthValidator
 
 
 class Post(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # settings.AUTH_USER_MODEL은 기본 유저 모델
     # 1측에 해당하는 pk가 post_id라는 이름으로 저장된다
-    message = models.TextField()
+    message = models.TextField(validators=[MinLengthValidator(10)])
     # blank가 True라는 것은 꼭 사진을 안넣어도 된다는 것
     photo = models.ImageField(blank=True, upload_to='instagram/post/%Y/%m/%d')
     # blank=True로 하면 태그는 필수가 아님
